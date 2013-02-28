@@ -71,17 +71,43 @@ namespace InstaSharp.Endpoints.Users {
             return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, minTimestamp, maxTimestamp));
         }
 
-        private string RecentJson(string maxId, string minId, int count, DateTime? minTimestamp, DateTime? maxTimestamp) {
-            string uri = string.Format(base.Uri + "{0}/media/recent?access_token={1}", AuthInfo.User.Id, AuthInfo.Access_Token);
+		public MediasResponse Recent(int userId)
+		{
+			return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(userId, "", "", 0, null, null));
+		}
 
-            if (maxId != "") uri += "&max_id=" + maxId;
-            if (minId != "") uri += "&min_id=" + minId;
-            if (count != 0) uri += "&count=" + count;
-            if (minTimestamp != null) uri += "&min_timestamp=" + minTimestamp;
-            if (maxTimestamp != null) uri += "&max_timestamp" + maxTimestamp;
+		public MediasResponse Recent(int userId, string maxId)
+		{
+			return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(userId, maxId, "", 0, null, null));
+		}
 
-            return HttpClient.GET(uri);
-        }
+		public MediasResponse Recent(int userId, string maxId, int count)
+		{
+			return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(userId, maxId, "", count, null, null));
+		}
+
+		public MediasResponse Recent(int userId, string maxId, string minId, int count)
+		{
+			return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(userId, maxId, minId, count, null, null));
+		}
+
+		public MediasResponse Recent(int userId, string maxId, string minId, int count, DateTime minTimestamp, DateTime maxTimestamp)
+		{
+			return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(userId, maxId, minId, count, minTimestamp, maxTimestamp));
+		}
+
+		private string RecentJson(int? userId, string maxId, string minId, int count, DateTime? minTimestamp, DateTime? maxTimestamp)
+		{
+			string uri = string.Format(base.Uri + "{0}/media/recent?access_token={1}", userId ?? AuthInfo.User.Id, AuthInfo.Access_Token);
+
+			if (maxId != "") uri += "&max_id=" + maxId;
+			if (minId != "") uri += "&min_id=" + minId;
+			if (count != 0) uri += "&count=" + count;
+			if (minTimestamp != null) uri += "&min_timestamp=" + minTimestamp;
+			if (maxTimestamp != null) uri += "&max_timestamp" + maxTimestamp;
+
+			return HttpClient.GET(uri);
+		}
 
         public MediasResponse Liked() {
             return (MediasResponse)Mapper.Map<MediasResponse>(LikedJson("", 0));
