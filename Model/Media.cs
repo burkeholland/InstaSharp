@@ -12,8 +12,8 @@ namespace InstaSharp.Model {
         [JsonMapping("comments", JsonMapping.MappingType.Class)]
         public Model.Comments Comments { get; set; }
         
-        [JsonMapping("caption", JsonMapping.MappingType.Primitive)]
-        public string Caption { get; set; }
+        [JsonMapping("caption", JsonMapping.MappingType.Class)]
+        public Caption Caption { get; set; }
 
         [JsonMapping("link", JsonMapping.MappingType.Primitive)]
         public string Link { get; set; }

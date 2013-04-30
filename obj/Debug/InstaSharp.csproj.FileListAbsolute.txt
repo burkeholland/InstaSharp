@@ -28,3 +28,8 @@ C:\Users\injac\Documents\GitHub\InstaSharp\bin\Debug\InstaSharp.pdb
 C:\Users\injac\Documents\GitHub\InstaSharp\obj\Debug\InstaSharp.csprojResolveAssemblyReference.cache
 C:\Users\injac\Documents\GitHub\InstaSharp\obj\Debug\InstaSharp.dll
 C:\Users\injac\Documents\GitHub\InstaSharp\obj\Debug\InstaSharp.pdb
+D:\Code\Github\InstaSharp\bin\Debug\InstaSharp.dll
+D:\Code\Github\InstaSharp\bin\Debug\InstaSharp.pdb
+D:\Code\Github\InstaSharp\obj\Debug\InstaSharp.csprojResolveAssemblyReference.cache
+D:\Code\Github\InstaSharp\obj\Debug\InstaSharp.dll
+D:\Code\Github\InstaSharp\obj\Debug\InstaSharp.pdb
