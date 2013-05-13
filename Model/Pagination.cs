@@ -7,7 +7,6 @@ namespace InstaSharp.Model
 {
     public class Pagination
     {
-
         [JsonMapping("next_url", JsonMapping.MappingType.Primitive)]
         public string NextUrl { get; set; }
 
