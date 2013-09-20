@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace InstaSharp.Model {
     public class Media {
 
         [JsonMapping("location", JsonMapping.MappingType.Class)]
-        public Model.Location Location { get; set; }
+        public Location Location { get; set; }
         
         [JsonMapping("comments", JsonMapping.MappingType.Class)]
-        public Model.Comments Comments { get; set; }
+        public Comments Comments { get; set; }
         
-        [JsonMapping("caption", JsonMapping.MappingType.Primitive)]
-        public string Caption { get; set; }
+        [JsonMapping("caption", JsonMapping.MappingType.Class)]
+        public Caption Caption { get; set; }
 
         [JsonMapping("link", JsonMapping.MappingType.Primitive)]
         public string Link { get; set; }
@@ -22,10 +20,13 @@ namespace InstaSharp.Model {
         public Like Likes { get; set; }
         
         [JsonMapping("created_time", JsonMapping.MappingType.Primitive)]
-        public DateTime CreatedTime { get; set; }
-        
-        [JsonMapping("images", JsonMapping.MappingType.Class)]
-        public Image Images { get; set; }
+		public DateTime CreatedTime { get; set; }
+
+		[JsonMapping("images", JsonMapping.MappingType.Class)]
+		public MediaObject Images { get; set; }
+
+		[JsonMapping("videos", JsonMapping.MappingType.Class)]
+		public MediaObject Videos { get; set; }
         
         [JsonMapping("type", JsonMapping.MappingType.Primitive)]
         public string Type { get; set; }

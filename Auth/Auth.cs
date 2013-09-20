@@ -25,17 +25,26 @@ namespace InstaSharp {
 
         public static string AuthLink(string instagramOAuthURI, string clientId, string callbackURI, List<Scope> scopes) {
             StringBuilder scope = new StringBuilder();
-            scopes.ForEach(s => {
-                if (scope.Length > 0) scope.Append("+");
-                scope.Append(s);
-            });
+			if (scopes != null && scopes.Count > 0)
+			{
+				scope.Append("&scope=");
+				scopes.ForEach(s =>
+					{
+						scope.Append(s);
+						scope.Append("+");
+					});
 
-            return string.Format("{0}/authorize/?client_id={1}&redirect_uri={2}&response_type=code&scope={3}", new object[] {
-                instagramOAuthURI,
-                clientId, 
-                callbackURI, 
-                scope.ToString()
-            });
+				// Remove the trailing plus
+				scope.Length--;
+			}
+
+            return String.Format("{0}/authorize/?client_id={1}&redirect_uri={2}&response_type=code{3}",
+				new object[] {
+					instagramOAuthURI,
+					clientId, 
+					callbackURI, 
+					scope.ToString()
+				});
         }
 
         public AuthInfo RequestToken(string code) {

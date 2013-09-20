@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using InstaSharp.Model.Responses;
 
 namespace InstaSharp.Endpoints.Users {
@@ -15,7 +13,7 @@ namespace InstaSharp.Endpoints.Users {
         }
 
         public UserResponse Get() {
-            return (Model.Responses.UserResponse)Mapper.Map<Model.Responses.UserResponse>(GetJson(AuthInfo.User.Id));
+            return (UserResponse)Mapper.Map<UserResponse>(GetJson(AuthInfo.User.Id));
         }
 
         public UserResponse Get(int userId) {
@@ -27,58 +25,87 @@ namespace InstaSharp.Endpoints.Users {
         }
 
         public MediasResponse Feed(string user) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(user, string.Empty, 0));
+            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(String.Empty, 0));
         }
 
         public MediasResponse Feed(string user, string maxId) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(user, maxId, 0)); 
+            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(maxId, 0)); 
         }
 
         public MediasResponse Feed(string user, int count) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(user, string.Empty, count));
+            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(String.Empty, count));
         }
 
         public MediasResponse Feed(string user, string maxId, int count) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(user, maxId, count));
+            return (MediasResponse)Mapper.Map<MediasResponse>(FeedJson(maxId, count));
         }
 
-        private string FeedJson(string user, string maxId, int count) {
-            string uri = string.Format(base.Uri + "self/feed?access_token={0}", AuthInfo.Access_Token);
+        private string FeedJson(string maxId, int count) {
+            string uri = String.Concat(base.Uri, "self/feed?access_token=", AuthInfo.Access_Token);
 
-            if (!string.IsNullOrEmpty(maxId)) uri += "&max_id=" + maxId;
+            if (!String.IsNullOrEmpty(maxId)) uri += "&max_id=" + maxId;
             if (count > 0) uri += "&count=" + count;
 
             return HttpClient.GET(uri);
         }
 
         public MediasResponse Recent() {
-            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson("", "", 0, null, null));
+            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson("", "", 0, null, null, null));
         } 
 
         public MediasResponse Recent(string maxId) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(maxId, "", 0, null, null));
+            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(maxId, "", 0, null, null, null));
         }
 
-        public MediasResponse Recent(string maxId, int count) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(maxId, "", count, null, null));
-        }
+		public MediasResponse Recent(string maxId, int count)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, "", count, null, null, null));
+		}
 
-        public MediasResponse Recent (string maxId, string minId, int count) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, null, null));
-        }
+		public MediasResponse Recent(string maxId, int count, int? userID)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, "", count, userID, null, null));
+		}
 
-        public MediasResponse Recent(string maxId, string minId, int count, DateTime minTimestamp, DateTime maxTimestamp) {
-            return (MediasResponse)Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, minTimestamp, maxTimestamp));
-        }
+		public MediasResponse Recent(string maxId, string minId, int count)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, null, null, null));
+		}
 
-        private string RecentJson(string maxId, string minId, int count, DateTime? minTimestamp, DateTime? maxTimestamp) {
-            string uri = string.Format(base.Uri + "{0}/media/recent?access_token={1}", AuthInfo.User.Id, AuthInfo.Access_Token);
+		public MediasResponse Recent(string maxId, string minId, int count, int? userID)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, userID, null, null));
+		}
 
-            if (maxId != "") uri += "&max_id=" + maxId;
-            if (minId != "") uri += "&min_id=" + minId;
-            if (count != 0) uri += "&count=" + count;
-            if (minTimestamp != null) uri += "&min_timestamp=" + minTimestamp;
-            if (maxTimestamp != null) uri += "&max_timestamp" + maxTimestamp;
+		public MediasResponse Recent(string maxId, string minId, int count, DateTime minTimestamp, DateTime maxTimestamp)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, null, minTimestamp, maxTimestamp));
+		}
+
+		public MediasResponse Recent(string maxId, string minId, int count, DateTime? minTimestamp, DateTime? maxTimestamp)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, null, minTimestamp, maxTimestamp));
+		}
+
+		public MediasResponse Recent(string maxId, string minId, int count, int? userID, DateTime minTimestamp, DateTime maxTimestamp)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, userID, minTimestamp, maxTimestamp));
+		}
+
+		public MediasResponse Recent(string maxId, string minId, int count, int? userID, DateTime? minTimestamp, DateTime? maxTimestamp)
+		{
+			return (MediasResponse) Mapper.Map<MediasResponse>(RecentJson(maxId, minId, count, userID, minTimestamp, maxTimestamp));
+		}
+
+		private string RecentJson(string maxId, string minId, int count, int? userID, DateTime? minTimestamp, DateTime? maxTimestamp)
+		{
+			string uri = String.Concat(base.Uri, userID ?? AuthInfo.User.Id, "/media/recent?access_token=", AuthInfo.Access_Token);
+
+            if (!String.IsNullOrEmpty(maxId)) uri += "&max_id=" + maxId;
+            if (!String.IsNullOrEmpty(minId)) uri += "&min_id=" + minId;
+            if (count > 0) uri += "&count=" + count;
+            if (minTimestamp.HasValue) uri += "&min_timestamp=" + minTimestamp;
+            if (maxTimestamp.HasValue) uri += "&max_timestamp" + maxTimestamp;
 
             return HttpClient.GET(uri);
         }
@@ -96,10 +123,10 @@ namespace InstaSharp.Endpoints.Users {
         }
 
         private string LikedJson(string max_like_id, int count) {
-            string uri = string.Format(base.Uri + "self/media/liked?access_token={0}", AuthInfo.Access_Token);
+            string uri = String.Concat(base.Uri, "self/media/liked?access_token=", AuthInfo.Access_Token);
 
-            if (max_like_id != null) uri += "&max_like_id=" + max_like_id;
-            if (count != 0) uri += "&count=" + count;
+            if (String.IsNullOrEmpty(max_like_id)) uri += "&max_like_id=" + max_like_id;
+            if (count > 0) uri += "&count=" + count;
 
             return HttpClient.GET(uri);
         }

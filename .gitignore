@@ -163,5 +163,8 @@ pip-log.txt
 # Mac crap
 .DS_Store
 
-/bin
-/obj
+####################
+## Build components
+####################
+InstaSharp.dll
+InstaSharp.pdb

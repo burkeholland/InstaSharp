@@ -68,9 +68,10 @@
     <Compile Include="Config\InstagramConfig.cs" />
     <Compile Include="Endpoints\UserInfo.cs" />
     <Compile Include="Mapper.cs" />
+    <Compile Include="Model\Caption.cs" />
     <Compile Include="Model\Comments.cs" />
     <Compile Include="Model\Count.cs" />
-    <Compile Include="Model\Image.cs" />
+    <Compile Include="Model\MediaObject.cs" />
     <Compile Include="Model\JsonMapping.cs" />
     <Compile Include="Model\Like.cs" />
     <Compile Include="Model\Location.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Model\Meta.cs" />
     <Compile Include="Model\Pagination.cs" />
     <Compile Include="Model\Relationship.cs" />
+    <Compile Include="Model\Resolution.cs" />
     <Compile Include="Model\Responses\CommentsResponse.cs" />
     <Compile Include="Model\Responses\CommentResponse.cs" />
     <Compile Include="Model\Responses\IResponse.cs" />
