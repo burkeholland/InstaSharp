@@ -77,8 +77,8 @@ namespace InstaSharp.Endpoints.Users {
             if (maxId != "") uri += "&max_id=" + maxId;
             if (minId != "") uri += "&min_id=" + minId;
             if (count != 0) uri += "&count=" + count;
-            if (minTimestamp != null) uri += "&min_timestamp=" + minTimestamp;
-            if (maxTimestamp != null) uri += "&max_timestamp" + maxTimestamp;
+            if (minTimestamp != null) uri += "&min_timestamp=" + TimeStamp.DateTimeToUnixTimestamp((DateTime)minTimestamp);
+            if (maxTimestamp != null) uri += "&max_timestamp" + TimeStamp.DateTimeToUnixTimestamp((DateTime)maxTimestamp);
 
             return HttpClient.GET(uri);
         }

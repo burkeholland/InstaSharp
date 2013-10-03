@@ -94,6 +94,7 @@
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\Responses\UserResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeStamp.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -107,4 +108,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\Newtonsoft.Json\Src\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
+      <Project>{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}</Project>
+      <Name>Newtonsoft.Json.Net40</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
