@@ -33,14 +33,13 @@ namespace InstaSharp.Endpoints
         /// <c>Requires Authentication: False</c>
         /// </para>
         /// <param name="tagName">Return information about this tag.</param>
-        /// <param name="min_id">Return media before this min_id. If you don't want to use this parameter, use null.</param>
-        /// <param name="max_id">Return media after this max_id. If you don't want to use this parameter, use null.</param>
-        public Task<MediasResponse> Recent(string tagName, string min_id = "", string max_id = "") {
+        /// <param name="min_id">Return media before this min_tag_id. If you don't want to use this parameter, use null.</param>
+        /// <param name="max_id">Return media after this max_tag_id. If you don't want to use this parameter, use null.</param>
+        public Task<MediasResponse> Recent(string tagName, string min_tag_id = "", string max_tag_id = "") {
             var request = base.Request("{tag}/media/recent");
             request.AddUrlSegment("tag", tagName);
-            request.AddParameter("min_id", min_id);
-            request.AddParameter("max_id", max_id);
-
+            request.AddParameter("min_tag_id", max_id);
+            request.AddParameter("max_tag_id", max_id);
             return base.Client.ExecuteAsync<MediasResponse>(request);
         }
 
