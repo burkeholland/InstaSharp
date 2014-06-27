@@ -34,8 +34,8 @@ namespace InstaSharp.Endpoints
         /// <c>Requires Authentication: False</c>
         /// </para>
         /// <param name="tagName">Return information about this tag.</param>
-        /// <param name="min_id">Return media before this min_tag_id. If you don't want to use this parameter, use null.</param>
-        /// <param name="max_id">Return media after this max_tag_id. If you don't want to use this parameter, use null.</param>
+        /// <param name="min_tag_id">Return media before this min_tag_id. If you don't want to use this parameter, use null.</param>
+        /// <param name="max_tag_id">Return media after this max_tag_id. If you don't want to use this parameter, use null.</param>
         /// <param name="count">Count of tagged media to return. Will still be governed by Instagram's enforced limit. If you don't want to use this parameter, use null.</param>
         public Task<MediasResponse> Recent(string tagName, string min_tag_id = "", string max_tag_id = "", int? count = null) {
             var request = base.Request("{tag}/media/recent");
